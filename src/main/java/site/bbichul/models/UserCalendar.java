@@ -1,0 +1,44 @@
+package site.bbichul.models;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@NoArgsConstructor
+@Data
+@Entity
+public class UserCalendar {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "teamId")
+    private Team team;
+
+    @Column(nullable = false)
+    private int userCount;
+
+    @Column(nullable = false)
+    private int teamCount;
+
+    @Column(nullable = false)
+    private String calendarType;
+
+    public UserCalendar(User user){
+        this.user = user;
+    }
+
+    public UserCalendar(Team team){
+        this.team = team;
+    }
+
+}
